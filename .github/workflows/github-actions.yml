@@ -1,0 +1,50 @@
+name: Lint, Typecheck, and Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  lint-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript type check
+        run: npm run typecheck
+
+  build:
+    needs: lint-typecheck # Build only runs if lint + typecheck succeed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
