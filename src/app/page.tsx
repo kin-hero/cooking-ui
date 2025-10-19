@@ -1,3 +1,10 @@
+import HeroImage from "@/components/features/hero";
+
 export default function Home() {
-  return <div>Landing Page</div>;
+  return (
+    <div>
+      <HeroImage />
+      Landing Page
+    </div>
+  );
 }
