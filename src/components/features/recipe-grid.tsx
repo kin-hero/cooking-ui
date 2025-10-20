@@ -1,14 +1,14 @@
-import { getAllRecipes } from "@/services/recipe-service";
 import { RecipeCard } from "@/components/features/recipe-card";
+import type { RecipeDataForHomePage } from "@/types/recipe";
 
-export async function RecipeGrid() {
-  const recipes = await getAllRecipes();
-  const { data } = recipes;
-  const { recipeData } = data;
+type RecipeGridProps = {
+  recipes: RecipeDataForHomePage[];
+};
 
+export function RecipeGrid({ recipes }: RecipeGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {recipeData.map((recipe) => (
+      {recipes.map((recipe) => (
         <RecipeCard recipe={recipe} key={recipe.recipeId} />
       ))}
     </div>

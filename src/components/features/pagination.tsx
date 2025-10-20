@@ -1,10 +1,8 @@
-import { getAllRecipes } from "@/services/recipe-service";
+type PaginationProps = {
+  hasMore: boolean;
+};
 
-export async function Pagination() {
-  const recipes = await getAllRecipes();
-  const { data } = recipes;
-  const { hasMore } = data;
-
+export function Pagination({ hasMore }: PaginationProps) {
   if (!hasMore) return null;
 
   return (
