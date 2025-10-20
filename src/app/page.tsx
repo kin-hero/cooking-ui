@@ -1,32 +1,27 @@
-import { getAllRecipes } from "@/services/recipe-service";
+import { Suspense } from "react";
 // Components
 import Hero from "@/components/features/hero";
-import { RecipeCard } from "@/components/features/recipe-card";
+import { RecipeGrid } from "@/components/features/recipe-grid";
+import { RecipeGridSkeleton } from "@/components/features/recipe-grid-skeleton";
+import { Pagination } from "@/components/features/pagination";
 
-export default async function Home() {
-  const recipes = await getAllRecipes();
-  const { data } = recipes;
-  const { recipeData, totalItems, hasMore } = data;
-
+export default function Home() {
   return (
     <div>
+      {/* Hero renders immediately */}
       <Hero />
 
-      {/* Recipe Grid - 3 columns, responsive */}
+      {/* Recipe grid streams in when data is ready */}
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recipeData.map((data) => (
-            <RecipeCard recipe={data} key={data.recipeId} />
-          ))}
-        </div>
+        <Suspense fallback={<RecipeGridSkeleton />}>
+          <RecipeGrid />
+        </Suspense>
       </div>
 
-      {/* Pagination */}
-      {hasMore && (
-        <div className="container mx-auto px-4 pb-8 text-center">
-          <p className="text-gray-600">More recipes available - Pagination coming soon...</p>
-        </div>
-      )}
+      {/* Pagination streams in after recipes load */}
+      <Suspense fallback={null}>
+        <Pagination />
+      </Suspense>
     </div>
   );
 }
