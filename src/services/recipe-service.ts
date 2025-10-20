@@ -1,16 +1,22 @@
-/**
- * Recipe-related API calls
- *
- * All functions that fetch recipe data from your API
- */
+import { apiClient } from "./api-client";
+import type { RecipeData } from "@/types/recipe";
 
-// import { apiClient } from './api-client';
-// import type { Recipe } from '@/types';
+export async function getAllRecipes(page?: number, limit?: number): Promise<RecipeData> {
+  const params = new URLSearchParams();
 
-// Example functions:
-// export async function getAllRecipes(): Promise<Recipe[]> {
-//   return apiClient<Recipe[]>('/recipes');
-// }
+  if (page !== undefined) {
+    params.append("page", page.toString());
+  }
+
+  if (limit !== undefined) {
+    params.append("limit", limit.toString());
+  }
+
+  const queryString = params.toString();
+  const url = queryString ? `/recipes?${queryString}` : "/recipes";
+
+  return apiClient<RecipeData>(url);
+}
 
 // export async function getRecipeById(id: string): Promise<Recipe> {
 //   return apiClient<Recipe>(`/recipes/${id}`);

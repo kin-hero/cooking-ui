@@ -1,4 +1,4 @@
-interface RecipeDataForHomePage {
+export interface RecipeDataForHomePage {
   recipeId: string;
   title: string;
   prepTimeMinutes: number;
@@ -10,7 +10,11 @@ interface RecipeDataForHomePage {
 }
 
 export interface RecipeData {
-  recipeData: RecipeDataForHomePage[];
-  totalItems: number;
-  hasMore: boolean;
+  success: boolean;
+  message: string;
+  data: {
+    recipeData: RecipeDataForHomePage[];
+    totalItems: number;
+    hasMore: boolean;
+  };
 }
