@@ -131,9 +131,11 @@ This project uses environment files to manage configuration for different enviro
 ```bash
 # Public variables (exposed to browser)
 NEXT_PUBLIC_API_URL=http://localhost:3000/api
+NEXT_PUBLIC_CDN_URL=https://d1na6r1phhkgo7.cloudfront.net
 ```
 
 **Important Notes:**
+
 - Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser
 - Variables without the prefix are server-side only
 - Restart the dev server after changing environment variables
