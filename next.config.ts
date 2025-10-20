@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: getHostname(env.s3BucketUrl),
+        hostname: getHostname(env.cdnImageUrl),
         port: "",
         pathname: "/**",
       },
