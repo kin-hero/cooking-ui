@@ -1,7 +1,26 @@
 import type { NextConfig } from "next";
+import { env } from "@/config/env";
+
+// Extract hostname from S3 URL
+const getHostname = (url: string) => {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return "";
+  }
+};
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: getHostname(env.cdnImageUrl),
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
