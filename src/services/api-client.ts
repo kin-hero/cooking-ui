@@ -1,6 +1,6 @@
 import { env } from "@/config/env";
 
-export async function apiClient<T>(endpoint: string, options?: RequestInit): Promise<T> {
+export async function apiClient<T>(endpoint: string, options?: RequestInit): Promise<{ data: T; response: Response }> {
   const response = await fetch(`${env.apiUrl}${endpoint}`, {
     ...options,
     credentials: "include", //Ensures browser sends cookies cross-origin to your Fastify backend.
@@ -27,5 +27,6 @@ export async function apiClient<T>(endpoint: string, options?: RequestInit): Pro
     throw new Error(errorMessage);
   }
 
-  return response.json();
+  const data = await response.json();
+  return { data, response };
 }
