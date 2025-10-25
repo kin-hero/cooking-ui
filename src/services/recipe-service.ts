@@ -20,8 +20,8 @@ export async function getAllRecipes(page?: number, limit?: number): Promise<Reci
 }
 
 export async function getRecipeById(id: string): Promise<RecipeDetailResponse> {
-  const { data } = await apiClient<RecipeDetailResponse>(`/recipes/${id}`);
-  return data;
+  const { data: responseData } = await apiClient<RecipeDetailResponse>(`/recipes/${id}`);
+  return responseData;
 }
 
 // export async function searchRecipes(query: string): Promise<Recipe[]> {
