@@ -22,7 +22,7 @@ export async function Header() {
           ) : (
             <>
               <Link href="/auth/login" className="text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-100">
-                Login
+                Sign in
               </Link>
               <Link href="/auth/register" className="bg-[#FF9119] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#FF7A00]">
                 Register
