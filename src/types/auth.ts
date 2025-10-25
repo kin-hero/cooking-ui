@@ -24,6 +24,18 @@ export type RegisterResponse = {
   };
 };
 
+// Email verification types
+export type VerifyEmailQuery = {
+  email: string;
+  token: string;
+};
+
+export type VerifyEmailResponse = {
+  success: boolean;
+  message: string;
+};
+
+// Validation schemas
 export const registerSchema = z
   .object({
     email: z.string().min(1, "Email is required").email("Invalid email format"),
