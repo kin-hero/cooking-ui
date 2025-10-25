@@ -1,5 +1,5 @@
 import { apiClient } from "./api-client";
-import type { RecipeData } from "@/types/recipe";
+import type { RecipeData, RecipeDetailResponse } from "@/types/recipe";
 
 export async function getAllRecipes(page?: number, limit?: number): Promise<RecipeData> {
   const params = new URLSearchParams();
@@ -18,9 +18,9 @@ export async function getAllRecipes(page?: number, limit?: number): Promise<Reci
   return apiClient<RecipeData>(url);
 }
 
-// export async function getRecipeById(id: string): Promise<Recipe> {
-//   return apiClient<Recipe>(`/recipes/${id}`);
-// }
+export async function getRecipeById(id: string): Promise<RecipeDetailResponse> {
+  return apiClient<RecipeDetailResponse>(`/recipes/${id}`);
+}
 
 // export async function searchRecipes(query: string): Promise<Recipe[]> {
 //   return apiClient<Recipe[]>(`/recipes/search?q=${query}`);
