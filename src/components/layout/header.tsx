@@ -1,14 +1,34 @@
+// src/components/layout/header.tsx
+import { cookies } from "next/headers";
 import Link from "next/link";
 
-export function Header() {
+export async function Header() {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get("recipe_token_user");
+  const isLoggedIn = !!userToken;
+
   return (
-    <header>
-      <nav className="container mx-auto flex items-center justify-between px-4 py-4">
+    <header className="bg-white shadow-sm">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold">
           Recipify
         </Link>
-        <div className="flex gap-4 text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 rounded-lg text-sm px-5 py-2.5 text-center items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 me-2 mb-2 font-bold">
-          <Link href="/create/recipe">Create Recipe</Link>
+
+        <div className="flex items-center gap-4">
+          {isLoggedIn ? (
+            <Link href="/create/recipe" className="bg-[#FF9119] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#FF7A00]">
+              Create Recipe
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth/login" className="text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-100">
+                Sign in
+              </Link>
+              <Link href="/auth/register" className="bg-[#FF9119] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#FF7A00]">
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>
