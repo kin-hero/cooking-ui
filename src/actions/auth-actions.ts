@@ -34,8 +34,8 @@ export async function registerUserAction(prevState: RegisterActionState, formDat
     const { email, password, displayName } = validation.data;
     await registerUser({ email, password, displayName });
 
-    // 4. Redirect to verification page on success
-    redirect("/auth/verify-email?email=" + encodeURIComponent(email));
+    // 4. Redirect to registration success page
+    redirect("/auth/registration-success?email=" + encodeURIComponent(email));
   } catch (error) {
     // If it's a redirect, re-throw it (this is expected Next.js behavior)
     if (error instanceof Error && error.message === "NEXT_REDIRECT") {
