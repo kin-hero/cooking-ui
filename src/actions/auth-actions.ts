@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { loginUser, registerUser } from "@/services/auth-service";
 import { loginSchema, registerSchema } from "@/types/auth";
+import { cookies } from "next/headers";
 
 export type RegisterActionState = {
   success: boolean;
@@ -76,7 +77,22 @@ export async function loginUserAction(prevState: LoginActionState, formData: For
   // 3. Call backend API
   try {
     const { email, password } = validation.data;
-    await loginUser({ email, password });
+    const { response } = await loginUser({ email, password });
+
+    const setCookieHeader = response.headers.get("set-cookie");
+    if (setCookieHeader) {
+      const cookieParts = setCookieHeader.split(";");
+      const [nameValue] = cookieParts;
+      const [name, value] = nameValue.split("=");
+
+      const cookieStore = await cookies();
+      cookieStore.set(name.trim(), value.trim(), {
+        httpOnly: true,
+        path: "/",
+        maxAge: 24 * 60 * 60, // 24 hours
+        sameSite: "lax",
+      });
+    }
 
     // 4. Redirect to registration success page
     redirect("/");
