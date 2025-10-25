@@ -15,11 +15,13 @@ export async function getAllRecipes(page?: number, limit?: number): Promise<Reci
   const queryString = params.toString();
   const url = queryString ? `/recipes?${queryString}` : "/recipes";
 
-  return apiClient<RecipeData>(url);
+  const { data: responseData } = await apiClient<RecipeData>(url);
+  return responseData;
 }
 
 export async function getRecipeById(id: string): Promise<RecipeDetailResponse> {
-  return apiClient<RecipeDetailResponse>(`/recipes/${id}`);
+  const { data } = await apiClient<RecipeDetailResponse>(`/recipes/${id}`);
+  return data;
 }
 
 // export async function searchRecipes(query: string): Promise<Recipe[]> {
