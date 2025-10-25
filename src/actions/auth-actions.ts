@@ -1,8 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { registerUser } from "@/services/auth-service";
-import { registerSchema } from "@/types/auth";
+import { loginUser, registerUser } from "@/services/auth-service";
+import { loginSchema, registerSchema } from "@/types/auth";
 
 export type RegisterActionState = {
   success: boolean;
@@ -46,6 +46,50 @@ export async function registerUserAction(prevState: RegisterActionState, formDat
     return {
       success: false,
       message: error instanceof Error ? error.message : "Registration failed. Please try again.",
+    };
+  }
+}
+
+export type LoginActionState = {
+  success: boolean;
+  message?: string;
+  errors?: Record<string, string[]>;
+};
+
+export async function loginUserAction(prevState: LoginActionState, formData: FormData): Promise<LoginActionState> {
+  // 1. Extract form data
+  const rawData = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  // 2. Validate with Zod
+  const validation = loginSchema.safeParse(rawData);
+
+  if (!validation.success) {
+    return {
+      success: false,
+      errors: validation.error.flatten().fieldErrors,
+    };
+  }
+
+  // 3. Call backend API
+  try {
+    const { email, password } = validation.data;
+    await loginUser({ email, password });
+
+    // 4. Redirect to registration success page
+    redirect("/");
+  } catch (error) {
+    // If it's a redirect, re-throw it (this is expected Next.js behavior)
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
+      throw error;
+    }
+
+    // 5. Handle API errors
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Login failed. Please try again.",
     };
   }
 }
