@@ -1,5 +1,5 @@
 import { apiClient, apiMultiFormClient } from "./api-client";
-import type { RecipeDataResponse, RecipeDetailResponse, RecipeWithoutAuthorResponse, CreateRecipeResponse } from "@/types/recipe";
+import type { RecipeDataResponse, RecipeDetailResponse, RecipeWithoutAuthorResponse, CreateRecipeResponse, UpdateRecipeResponse } from "@/types/recipe";
 
 export async function getAllRecipes(page?: number, limit?: number): Promise<RecipeDataResponse> {
   const params = new URLSearchParams();
@@ -43,5 +43,11 @@ export async function getRecipePerAuthor(page?: number, limit?: number): Promise
 
 export async function createRecipe(formData: FormData): Promise<CreateRecipeResponse> {
   const { data: responseData } = await apiMultiFormClient<CreateRecipeResponse>("/recipes", formData);
+  return responseData;
+}
+
+export async function updateRecipe(recipeId: string, formData: FormData): Promise<UpdateRecipeResponse> {
+  const { data: responseData } = await apiMultiFormClient<UpdateRecipeResponse>(`/recipes/${recipeId}`, formData, "PUT");
+
   return responseData;
 }
