@@ -9,7 +9,7 @@ export interface RecipeDataForHomePage {
   authorAvatarUrl: string | null;
 }
 
-export interface RecipeData {
+export interface RecipeDataResponse {
   success: boolean;
   message: string;
   data: {
@@ -17,6 +17,27 @@ export interface RecipeData {
     totalItems: number;
     hasMore: boolean;
   };
+}
+
+// Export the individual recipe type for use in components
+export type RecipeDataWithoutAuthor = Omit<RecipeDataForHomePage, "authorName" | "authorAvatarUrl"> & {
+  isPublished: boolean;
+};
+
+// Union type for RecipeGrid - can accept either recipe type
+export type RecipeItem = RecipeDataForHomePage | RecipeDataWithoutAuthor;
+
+export interface RecipeWithoutAuthorData {
+  recipeData: RecipeDataWithoutAuthor[];
+  totalItems: number;
+  draftItems: number;
+  hasMore: boolean;
+}
+
+export interface RecipeWithoutAuthorResponse {
+  success: boolean;
+  message: string;
+  data: RecipeWithoutAuthorData;
 }
 
 export interface RecipeDetailData {

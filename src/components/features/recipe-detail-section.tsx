@@ -6,6 +6,7 @@ export async function RecipeDetailSection({ id }: { id: string }) {
   const recipes = await getRecipeById(id);
   const { data } = recipes;
   const { title, description, prepTimeMinutes, cookingTimeMinutes, servingSize, ingredients, instructions, imageUrl, authorAvatarUrl, authorName, isOwner } = data;
+  console.log("🚀 ~ RecipeDetailSection ~ isOwner:", isOwner);
 
   return (
     <section className="container mx-auto px-4 my-8">
@@ -88,7 +89,9 @@ export async function RecipeDetailSection({ id }: { id: string }) {
             <ol className="space-y-6">
               {instructions.map((instruction, index) => (
                 <li key={index} className="flex gap-4">
-                  <span className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#FF9119] to-[#FF7A00] text-white flex items-center justify-center text-lg font-bold shadow-md">{index + 1}</span>
+                  <span className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#FF9119] to-[#FF7A00] text-white flex items-center justify-center text-lg font-bold shadow-md">
+                    {index + 1}
+                  </span>
                   <div className="flex-1 pt-1.5">
                     <p className="text-gray-700 leading-relaxed text-lg">{instruction}</p>
                   </div>
