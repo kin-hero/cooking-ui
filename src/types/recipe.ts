@@ -56,6 +56,7 @@ export interface RecipeDetailData {
   authorName: string;
   authorAvatarUrl: string | null;
   isOwner: boolean;
+  isPublished: boolean;
 }
 
 export type RecipeDetailResponse = {
@@ -90,4 +91,32 @@ export const createRecipeSchema = z.object({
   cookingTimeMinutes: z.number().min(0, "Cooking time must be at least 0").max(1440, "Cooking time cannot exceed 24 hours"),
   servingSize: z.number().min(1, "Serving size must be at least 1").max(100, "Serving size cannot exceed 100"),
   isPublished: z.boolean(),
+});
+
+export type UpdateRecipeFormData = {
+  title?: string;
+  description?: string;
+  ingredients?: string[];
+  instructions?: string[];
+  prepTimeMinutes?: number;
+  cookingTimeMinutes?: number;
+  servingSize?: number;
+  isPublished?: boolean;
+  image?: File;
+};
+
+export type UpdateRecipeResponse = {
+  success: boolean;
+  message: string;
+};
+
+export const updateRecipeSchema = z.object({
+  title: z.string().min(1, "Title is required").max(200, "Title must be less than 200 characters").optional(),
+  description: z.string().min(1, "Description is required").max(1000, "Description must be less than 1000 characters").optional(),
+  ingredients: z.array(z.string().min(1, "Ingredient cannot be empty")).min(1, "At least one ingredient is required").optional(),
+  instructions: z.array(z.string().min(1, "Instruction cannot be empty")).min(1, "At least one instruction is required").optional(),
+  prepTimeMinutes: z.number().min(0, "Prep time must be at least 0").max(1440, "Prep time cannot exceed 24 hours").optional(),
+  cookingTimeMinutes: z.number().min(0, "Cooking time must be at least 0").max(1440, "Cooking time cannot exceed 24 hours").optional(),
+  servingSize: z.number().min(1, "Serving size must be at least 1").max(100, "Serving size cannot exceed 100").optional(),
+  isPublished: z.boolean().optional(),
 });
