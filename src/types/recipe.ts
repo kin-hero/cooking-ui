@@ -120,3 +120,8 @@ export const updateRecipeSchema = z.object({
   servingSize: z.number().min(1, "Serving size must be at least 1").max(100, "Serving size cannot exceed 100").optional(),
   isPublished: z.boolean().optional(),
 });
+
+export type DeleteRecipeResponse = {
+  success: boolean;
+  message: string;
+};

@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { RecipeGrid } from "./recipe-grid";
 import type { RecipeDataWithoutAuthor } from "@/types/recipe";
+import Link from "next/link";
 
 type RecipeFilterStatus = "all" | "published" | "drafts";
 
@@ -51,7 +52,32 @@ export function DashboardRecipeList({ recipes }: DashboardRecipeListProps) {
           </button>
         </div>
       </div>
-      <RecipeGrid recipes={filteredRecipes} />
+      {filteredRecipes.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 px-4">
+          <div className="bg-gray-50 rounded-full w-20 h-20 flex items-center justify-center mb-4">
+            <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">No recipes created yet</h3>
+          <p className="text-gray-600 text-center mb-6 max-w-sm">
+            {filterStatus === "published" && "You haven't published any recipes yet."}
+            {filterStatus === "drafts" && "You don't have any draft recipes."}
+            {filterStatus === "all" && "Start sharing your culinary creations with the world!"}
+          </p>
+          <Link
+            href="/dashboard/create"
+            className="inline-flex items-center gap-2 bg-[#FF9119] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#FF7A00] transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Create Your First Recipe
+          </Link>
+        </div>
+      ) : (
+        <RecipeGrid recipes={filteredRecipes} />
+      )}
     </div>
   );
 }
