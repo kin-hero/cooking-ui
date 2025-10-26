@@ -11,7 +11,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <div className="container mx-auto px-4 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Dashboard</h1>
+              <Link href="/dashboard">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Dashboard</h1>
+              </Link>
               <p className="text-sm sm:text-base text-gray-600 mt-1">Manage and track your recipes</p>
             </div>
             <Link
