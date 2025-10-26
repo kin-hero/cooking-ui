@@ -1,12 +1,12 @@
 import { getRecipeById } from "@/services/recipe-service";
 import Image from "next/image";
 import { FaClock, FaConciergeBell, FaUtensils } from "react-icons/fa";
+import Link from "next/link";
 
 export async function RecipeDetailSection({ id }: { id: string }) {
   const recipes = await getRecipeById(id);
   const { data } = recipes;
   const { title, description, prepTimeMinutes, cookingTimeMinutes, servingSize, ingredients, instructions, imageUrl, authorAvatarUrl, authorName, isOwner } = data;
-  console.log("🚀 ~ RecipeDetailSection ~ isOwner:", isOwner);
 
   return (
     <section className="container mx-auto px-4 my-8">
@@ -33,7 +33,15 @@ export async function RecipeDetailSection({ id }: { id: string }) {
             <p className="text-sm text-gray-500">Recipe by</p>
             <p className="text-lg font-semibold text-gray-900">{authorName}</p>
           </div>
-          {isOwner ? <span className="ml-auto bg-[#FF9119] text-white text-xs font-bold px-3 py-1.5 rounded-full">Your Recipe</span> : null}
+          {/* Edit Button - Only show if user is owner */}
+          {isOwner && (
+            <Link href={`/dashboard/edit/${id}`} className="inline-flex items-center gap-2 bg-[#FF9119] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#FF7A00] transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
+              Edit Recipe
+            </Link>
+          )}
         </div>
 
         {/* Description */}
