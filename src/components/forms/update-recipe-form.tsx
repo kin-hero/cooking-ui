@@ -1,9 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { updateRecipeAction, type UpdateRecipeActionState } from "@/actions/recipe-actions";
+import { updateRecipeAction, type UpdateRecipeActionState, deleteRecipeAction, type DeleteRecipeActionState } from "@/actions/recipe-actions";
 import Image from "next/image";
 import type { RecipeDetailData } from "@/types/recipe";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 
 type UpdateRecipeFormProps = {
   recipe: RecipeDetailData;
@@ -17,6 +18,19 @@ export function UpdateRecipeForm({ recipe }: UpdateRecipeFormProps) {
   // State for dynamic arrays - pre-filled with existing data
   const [ingredients, setIngredients] = useState<string[]>(recipe.ingredients);
   const [instructions, setInstructions] = useState<string[]>(recipe.instructions);
+
+  // State for delete confirmation modal
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteState, deleteAction, isDeleting] = useActionState<DeleteRecipeActionState, FormData>(deleteRecipeAction, { success: false });
+
+  // Handle delete confirmation
+  const handleDeleteConfirm = () => {
+    // Submit the hidden delete form
+    const deleteForm = document.getElementById("delete-form") as HTMLFormElement;
+    if (deleteForm) {
+      deleteForm.requestSubmit();
+    }
+  };
 
   // Handlers for ingredients
   const addIngredient = () => setIngredients([...ingredients, ""]);
@@ -37,6 +51,7 @@ export function UpdateRecipeForm({ recipe }: UpdateRecipeFormProps) {
   };
 
   return (
+    <>
     <form action={formAction} className="space-y-6 max-w-3xl mx-auto">
       {/* Show global error message */}
       {state.message && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">{state.message}</div>}
@@ -221,23 +236,54 @@ export function UpdateRecipeForm({ recipe }: UpdateRecipeFormProps) {
       </div>
 
       {/* Submit Button */}
-      <div className="flex gap-4">
-        <button
-          type="submit"
-          disabled={isPending}
-          className="flex-1 bg-[#FF9119] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#FF7A00] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {isPending ? "Updating..." : "Update Recipe"}
-        </button>
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            disabled={isPending || isDeleting}
+            className="flex-1 bg-[#FF9119] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#FF7A00] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isPending ? "Updating..." : "Update Recipe"}
+          </button>
+          <button
+            type="button"
+            onClick={() => window.history.back()}
+            disabled={isPending || isDeleting}
+            className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+
+        {/* Delete Button */}
         <button
           type="button"
-          onClick={() => window.history.back()}
-          disabled={isPending}
-          className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          onClick={() => setIsDeleteModalOpen(true)}
+          disabled={isPending || isDeleting}
+          className="w-full px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          Cancel
+          Delete Recipe
         </button>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        title="Delete Recipe"
+        message="Are you sure you want to delete this recipe? This action cannot be undone and will permanently remove the recipe and all its images."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        isLoading={isDeleting}
+        isDangerous={true}
+      />
     </form>
+
+    {/* Hidden delete form */}
+    <form id="delete-form" action={deleteAction} className="hidden">
+      <input type="hidden" name="recipeId" value={recipe.id} />
+    </form>
+    </>
   );
 }

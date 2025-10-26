@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createRecipe, updateRecipe } from "@/services/recipe-service";
+import { createRecipe, updateRecipe, deleteRecipe } from "@/services/recipe-service";
 import { createRecipeSchema, updateRecipeSchema } from "@/types/recipe";
 import type { CreateRecipeFormData, UpdateRecipeFormData } from "@/types/recipe";
 
@@ -147,6 +147,43 @@ export async function updateRecipeAction(prevState: UpdateRecipeActionState, for
     return {
       success: false,
       message: "Failed to update recipe. Please try again later.",
+    };
+  }
+}
+
+export type DeleteRecipeActionState = {
+  success: boolean;
+  message?: string;
+};
+
+export async function deleteRecipeAction(prevState: DeleteRecipeActionState, formData: FormData): Promise<DeleteRecipeActionState> {
+  // 1. Extract recipe ID
+  const recipeId = formData.get("recipeId") as string;
+
+  if (!recipeId) {
+    return {
+      success: false,
+      message: "Recipe ID is required",
+    };
+  }
+
+  // 2. Call backend API
+  try {
+    await deleteRecipe(recipeId);
+
+    // 3. Redirect to dashboard on success
+    redirect("/dashboard");
+  } catch (error) {
+    // If it's a redirect, re-throw it (this is expected Next.js behavior)
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
+      throw error;
+    }
+
+    // Handle API errors - show generic message to user, log technical details
+    console.error("Delete recipe error:", error);
+    return {
+      success: false,
+      message: "Failed to delete recipe. Please try again later.",
     };
   }
 }
