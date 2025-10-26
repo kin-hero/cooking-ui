@@ -49,7 +49,7 @@ export async function apiClient<T>(endpoint: string, options?: RequestInit): Pro
   return { data, response };
 }
 
-export async function apiMultiFormClient<T>(endpoint: string, formData: FormData): Promise<{ data: T; response: Response }> {
+export async function apiMultiFormClient<T>(endpoint: string, formData: FormData, method: "POST" | "PUT" = "POST"): Promise<{ data: T; response: Response }> {
   const isServer = typeof window === "undefined";
 
   // If server-side, get cookies and forward them
@@ -67,7 +67,7 @@ export async function apiMultiFormClient<T>(endpoint: string, formData: FormData
   }
 
   const response = await fetch(`${env.apiUrl}${endpoint}`, {
-    method: "POST",
+    method: method,
     body: formData,
     credentials: "include",
     headers: {
