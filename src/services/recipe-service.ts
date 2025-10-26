@@ -1,7 +1,7 @@
 import { apiClient } from "./api-client";
-import type { RecipeData, RecipeDetailResponse } from "@/types/recipe";
+import type { RecipeDataResponse, RecipeDetailResponse, RecipeWithoutAuthorResponse } from "@/types/recipe";
 
-export async function getAllRecipes(page?: number, limit?: number): Promise<RecipeData> {
+export async function getAllRecipes(page?: number, limit?: number): Promise<RecipeDataResponse> {
   const params = new URLSearchParams();
 
   if (page !== undefined) {
@@ -15,12 +15,29 @@ export async function getAllRecipes(page?: number, limit?: number): Promise<Reci
   const queryString = params.toString();
   const url = queryString ? `/recipes?${queryString}` : "/recipes";
 
-  const { data: responseData } = await apiClient<RecipeData>(url);
+  const { data: responseData } = await apiClient<RecipeDataResponse>(url);
   return responseData;
 }
 
 export async function getRecipeById(id: string): Promise<RecipeDetailResponse> {
   const { data: responseData } = await apiClient<RecipeDetailResponse>(`/recipes/${id}`);
+  return responseData;
+}
+
+export async function getRecipePerAuthor(page?: number, limit?: number): Promise<RecipeWithoutAuthorResponse> {
+  const params = new URLSearchParams();
+
+  if (page !== undefined) {
+    params.append("page", page.toString());
+  }
+
+  if (limit !== undefined) {
+    params.append("limit", limit.toString());
+  }
+
+  const queryString = params.toString();
+  const url = queryString ? `/recipes/author?${queryString}` : "/recipes/author";
+  const { data: responseData } = await apiClient<RecipeWithoutAuthorResponse>(url);
   return responseData;
 }
 

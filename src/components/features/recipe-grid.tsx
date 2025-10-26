@@ -1,8 +1,8 @@
 import { RecipeCard } from "@/components/features/recipe-card";
-import type { RecipeDataForHomePage } from "@/types/recipe";
+import type { RecipeItem } from "@/types/recipe";
 
 type RecipeGridProps = {
-  recipes: RecipeDataForHomePage[];
+  recipes: RecipeItem[];
 };
 
 export function RecipeGrid({ recipes }: RecipeGridProps) {
