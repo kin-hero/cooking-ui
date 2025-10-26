@@ -16,13 +16,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               </Link>
               <p className="text-sm sm:text-base text-gray-600 mt-1">Manage and track your recipes</p>
             </div>
-            <Link
-              href="/dashboard/create"
-              className="flex items-center justify-center gap-2 bg-[#FF9119] hover:bg-[#FF7A00] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-bold transition-colors shadow-md hover:shadow-lg whitespace-nowrap"
-            >
-              <FaPlus />
-              Create New Recipe
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link href="/" className="text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-100">
+                Home
+              </Link>
+              <Link
+                href="/dashboard/create"
+                className="flex items-center justify-center gap-2 bg-[#FF9119] hover:bg-[#FF7A00] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-bold transition-colors shadow-md hover:shadow-lg whitespace-nowrap"
+              >
+                <FaPlus />
+                Create New Recipe
+              </Link>
+            </div>
           </div>
         </div>
       </div>
