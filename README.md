@@ -170,11 +170,11 @@ This project uses a **type-safe environment system** with separate configuration
 
 ### Environment Files
 
-| File | Purpose | Committed |
-| --- | --- | --- |
-| `.env.development` | Local development (port 3000 API) | Yes |
-| `.env.production` | Production build (AWS API Gateway) | Yes |
-| `.env.local` | Local secrets & overrides | No (git-ignored) |
+| File | Purpose | 
+| --- | --- |
+| `.env.development` | Local development (port 3000 API) |
+| `.env.production` | Production build (AWS API Gateway) | 
+| `.env.local` | Local secrets & overrides |
 
 ### Required Variables
 
