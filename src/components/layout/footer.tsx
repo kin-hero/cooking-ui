@@ -50,16 +50,17 @@ export function Footer() {
             {/* Social Links */}
             <div className="flex justify-center md:justify-end gap-4">
               <Link
-                href="https://www.keanesetiawan.com	"
+                href="https://www.keanesetiawan.com/projects/recipify"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-900 hover:text-white text-gray-900 transition-all group"
               >
                 <FaRegUser className="text-xl" />
-                <span className="text-sm font-medium">Personal Website</span>
+                <span className="text-sm font-medium hidden md:inline">Full Professional Case Study</span>
+                <span className="text-sm font-medium md:hidden">Case Study</span>
               </Link>
               <Link
-                href="https://github.com/kin-hero"
+                href="https://github.com/kin-hero/Recipify"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-900 hover:text-white text-gray-900 transition-all group"
