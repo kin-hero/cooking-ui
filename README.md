@@ -316,5 +316,7 @@ All checks must pass before merge approval.
 ### Project Resources
 
 - [Live Demo](https://recipify.keanesetiawan.com/)
-- [Full Case Study](https://keanesetiawa.com/projects/recipify) - Architecture, challenges, and solutions
-- [Backend Repository](https://github.com/yourusername/recipify-api) - Fastify API with AWS Lambda
+- [Full Case Study](https://keanesetiawan.com/projects/recipify) - Architecture, challenges, and solutions
+- [Backend Repository](https://github.com/kin-hero/cooking-api) - Fastify API with AWS Lambda
+- [Project Hub](https://github.com/kin-hero/Recipify/) - Recipify Hub
+  
