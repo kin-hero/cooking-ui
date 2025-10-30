@@ -26,7 +26,7 @@ A production-grade, modern recipe platform UI built with Next.js 15, React 19, a
 | **Image Optimization** | Next.js Image + AWS CloudFront CDN |
 | **Icons** | react-icons |
 | **Fonts** | Geist Sans & Geist Mono (via next/font) |
-| **Deployment** | Vercel |
+| **Deployment** | AWS Amplify |
 | **Linting** | ESLint with Next.js config |
 
 ## Getting Started
@@ -305,7 +305,6 @@ All checks must pass before merge approval.
 
 ## Deployment
 - **Production:** [https://recipify.keanesetiawan.com/](https://recipify.keanesetiawan.com/)
-- Using AWS Amplify
 
 ## Learn More
 
