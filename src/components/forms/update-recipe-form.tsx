@@ -21,7 +21,7 @@ export function UpdateRecipeForm({ recipe }: UpdateRecipeFormProps) {
 
   // State for delete confirmation modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [_deleteState, deleteAction, isDeleting] = useActionState<DeleteRecipeActionState, FormData>(deleteRecipeAction, { success: false });
+  const [deleteState, deleteAction, isDeleting] = useActionState<DeleteRecipeActionState, FormData>(deleteRecipeAction, { success: false });
 
   // Handle delete confirmation
   const handleDeleteConfirm = () => {
@@ -55,6 +55,7 @@ export function UpdateRecipeForm({ recipe }: UpdateRecipeFormProps) {
       <form action={formAction} className="space-y-6 max-w-3xl mx-auto">
         {/* Show global error message */}
         {state.message && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">{state.message}</div>}
+        {deleteState.message && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">{deleteState.message}</div>}
 
         {/* Hidden field for recipe ID */}
         <input type="hidden" name="recipeId" value={recipe.id} />
