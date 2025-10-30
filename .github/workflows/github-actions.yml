@@ -1,4 +1,4 @@
-name: Lint, Typecheck, and Build
+name: Validate and Build
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  lint-typecheck:
+  validate-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,10 +19,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-          cache: "npm"
+          cache: "npm" # Caches dependencies for faster runs
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci # Use 'ci' for reproducible builds
 
       - name: Run ESLint
         run: npm run lint
@@ -30,21 +30,8 @@ jobs:
       - name: Run TypeScript type check
         run: npm run typecheck
 
-  build:
-    needs: lint-typecheck # Build only runs if lint + typecheck succeed
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Build project
         run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_CDN_URL: ${{ vars.NEXT_PUBLIC_CDN_URL }}
