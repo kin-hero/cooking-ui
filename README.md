@@ -41,8 +41,7 @@ A production-grade, modern recipe platform UI built with Next.js 15, React 19, a
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd cooking-ui
+git clone https://github.com/kin-hero/cooking-ui.git
 ```
 
 2. Install dependencies:
