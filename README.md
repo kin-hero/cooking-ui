@@ -1,6 +1,6 @@
 # Recipify - Full-Stack Recipe Platform UI
 
-[**View Live Demo**](https://recipify.keanesetiawan.com/) | [**Read Full Case Study**](https://keanesetiawa.com/projects/recipify)
+[**View Live Demo**](https://recipify.keanesetiawan.com/) | [**Read Full Case Study**](https://keanesetiawan.com/projects/recipify)
 
 A production-grade, modern recipe platform UI built with Next.js 15, React 19, and TypeScript. This frontend application provides a seamless user experience for creating, managing, and sharing recipes, featuring secure authentication, optimized image delivery via AWS CloudFront CDN, and a fully type-safe architecture.
 
@@ -56,7 +56,7 @@ npm install
 # For production or custom configuration, create .env.local:
 
 NEXT_PUBLIC_API_URL=http://localhost:3000/api
-NEXT_PUBLIC_CDN_URL=https://d1na6r1phhkgo7.cloudfront.net
+NEXT_PUBLIC_CDN_URL=https://dadfsd6r1phhkgo7.cloudfront.net
 ```
 
 4. Run the development server:
@@ -184,7 +184,7 @@ This project uses a **type-safe environment system** with separate configuration
 NEXT_PUBLIC_API_URL=http://localhost:3000/api
 
 # CloudFront CDN for optimized image delivery
-NEXT_PUBLIC_CDN_URL=https://d1na6r1phhkgo7.cloudfront.net
+NEXT_PUBLIC_CDN_URL=https://dadfsd6r1phhkgo7.cloudfront.net
 ```
 
 ### Type-Safe Access
@@ -304,17 +304,12 @@ GitHub Actions runs on every PR to `main`:
 All checks must pass before merge approval.
 
 ## Deployment
-
-This application is deployed on **Vercel** with automatic deployments:
-
 - **Production:** [https://recipify.keanesetiawan.com/](https://recipify.keanesetiawan.com/)
-- **Preview:** Automatic preview deployments for each PR
-- **Analytics:** Vercel Analytics enabled for performance monitoring
+- Using AWS Amplify
 
 ## Learn More
 
 ### Technologies
-
 - [Next.js Documentation](https://nextjs.org/docs) - App Router, Server Components, and API
 - [React Documentation](https://react.dev) - React 19 features and hooks
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/) - Type system and best practices
