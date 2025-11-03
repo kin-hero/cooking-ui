@@ -56,8 +56,7 @@ export function Footer() {
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-900 hover:text-white text-gray-900 transition-all group"
               >
                 <FaRegUser className="text-xl" />
-                <span className="text-sm font-medium hidden md:inline">Full Professional Case Study</span>
-                <span className="text-sm font-medium md:hidden">Case Study</span>
+                <span className="text-sm font-medium">Case Study</span>
               </Link>
               <Link
                 href="https://github.com/kin-hero/Recipify"
