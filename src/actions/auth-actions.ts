@@ -78,8 +78,13 @@ export async function loginUserAction(prevState: LoginActionState, formData: For
   try {
     const { email, password } = validation.data;
     const { response } = await loginUser({ email, password });
+    // ↑ Next.js server fetches from Fastify
+    // ↑ Fastify responds with: Set-Cookie: recipe_token_user=abc123...
 
+    //  Extract the Set-Cookie header
     const setCookieHeader = response.headers.get("set-cookie");
+    // ↑ This cookie is ONLY in Next.js server's memory, not the browser
+
     if (setCookieHeader) {
       const cookieParts = setCookieHeader.split(";");
       const [nameValue] = cookieParts;
@@ -92,6 +97,7 @@ export async function loginUserAction(prevState: LoginActionState, formData: For
         maxAge: 24 * 60 * 60, // 24 hours
         sameSite: "lax",
       });
+      // ↑ THIS is what sends the cookie to the browser!
     }
 
     // 4. Redirect to registration success page
