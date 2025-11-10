@@ -45,7 +45,7 @@ export function Footer() {
           <div className="text-center md:text-right">
             <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">Connect</h4>
             <p className="text-gray-700 font-medium mb-1">Keane Putra Setiawan</p>
-            <p className="text-sm text-gray-600 mb-4">Full-Stack Developer</p>
+            <p className="text-sm text-gray-600 mb-4">Full-Stack Engineer</p>
 
             {/* Social Links */}
             <div className="flex justify-center md:justify-end gap-4">
